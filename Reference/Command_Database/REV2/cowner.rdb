@@ -1,0 +1,17 @@
+OWNER_ID	DESCRIPTION
+S	S
+ACIS	AXAF CCD Imaging Spectrometer Subsystem
+AXAF	Other AXAF Signals
+CCDM	Communications Command and Data Management Subsystem
+EPH	Ephin Signals
+EPS	Electrical Power Subystem
+HRC	High Resolution Camera Subsystem
+OBC	Software Subsystem
+OFLS	OFLS Commands for Archie - 10/97
+PCAD	Pointing Control and Attitude Determination Subsystem
+PROP	Propulsion and Pyro Subsystems
+SIM	Science Instrument Module Subsystem
+SMS	Structures and Mechanical Subsystem
+TEL	Telescope Subsystem
+TEST	Test Owner ID for Archie - 3/97
+THM	Thermal Control Subsystem
