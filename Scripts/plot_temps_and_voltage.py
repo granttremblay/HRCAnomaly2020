@@ -18,6 +18,9 @@ fetch.data_source.set('maude allow_subset=True')
 
 hrc.styleplots()
 
+temp_alpha = 1.0  # set the opacity of the voltage plot.
+voltage_alpha = 0.0  # set the opacity of the voltage plot.
+
 # Grab the ggplot colors so you can manually set them if needed
 colortable = plt.rcParams['axes.prop_cycle'].by_key()['color']
 red = colortable[0]
@@ -149,7 +152,7 @@ fetch.data_source.set('maude')
 fig, ax = plt.subplots(figsize=(20, 12))
 
 rasterized = True
-markersize = 1.5
+markersize = 2
 
 
 # ax.axvline(sunday_pass, color='gray')
@@ -179,14 +182,27 @@ for i, msid in zip(color_idx, temperature_msids):
 
     if msid.content == 'hrc5eng':
         ax.plot_date(times, vals, markersize=markersize,
-                     rasterized=rasterized, color=plt.cm.tab20(i), label=msid.MSID)
+                     rasterized=rasterized, color=plt.cm.tab20(i), alpha=temp_alpha, label=msid.MSID)
 
 vmsid = fetch.MSID('2P15VAVL', start='2020:225')
 vtimes = hrc.convert_chandra_time(vmsid.times)
 ax.plot_date(vtimes, vmsid.vals, color=blue, markersize=markersize,
-             rasterized=rasterized, label='+15 V Bus (2P15VAVL)')
-ax.text(mdate.num2date(time_of_second_anomaly)[0].AddDays(-0.5), 15.2,
-        '+15 V Bus (V)', size=12, color=blue)
+             rasterized=rasterized, label='+15 V Bus (2P15VAVL)', alpha=voltage_alpha)
+
+
+vmsid = fetch.MSID('2N15VAVL', start='2020:225')
+vtimes = hrc.convert_chandra_time(vmsid.times)
+ax.plot_date(vtimes, vmsid.vals + 7, color=red, markersize=markersize,
+             rasterized=rasterized, label='-15 V Bus + 30 V (2N15VAVL)', alpha=voltage_alpha)
+
+vmsid = fetch.MSID('2P24VAVL', start='2020:225')
+vtimes = hrc.convert_chandra_time(vmsid.times)
+ax.plot_date(vtimes, vmsid.vals - 20, color=yellow, markersize=markersize,
+             rasterized=rasterized, label='+24 V Bus (2P25VAVL)', alpha=voltage_alpha)
+
+
+# ax.text(mdate.num2date(time_of_second_anomaly - 3600), 15.2,
+#         '+15 V Bus (V)', size=12, color=blue)
 
 lgnd = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 for i in range(len(lgnd.legendHandles)):
