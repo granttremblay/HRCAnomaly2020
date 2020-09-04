@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from hrcsentinel import hrccore as hrc
+from anomaly_variables import *
 
 # allow_subset=True should let us draw more data points
 fetch.data_source.set('maude allow_subset=True')
