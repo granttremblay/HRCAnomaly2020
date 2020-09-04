@@ -12,7 +12,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from anomaly_variables import *
+from msidlists import *
+from event_times import *
+from plot_stylers import *
 
 from hrcsentinel import hrccore as hrc
 hrc.styleplots()
@@ -22,11 +24,7 @@ hrc.styleplots()
 fetch.data_source.set('cxc', 'maude allow_subset=False')
 
 
-fig, ax = plt.subplots(figsize=(20, 12))
-i = 0
-while True:
-    i += 1
-    plt.pause(1)
+def update_plot():
 
     rasterized = True
     markersize = 1.8
@@ -40,6 +38,7 @@ while True:
 
     ax.axvline(time_of_cap_1543, color='gray')
 
+    print('Maude Fetch')
     for msid, color in zip(voltage_msids, colors_to_use):
         msid = fetch.MSID(msid, start='2020:234')
         times = hrc.convert_chandra_time(msid.times)
@@ -63,10 +62,17 @@ while True:
     xmin = dt.datetime(2020, 8, 23, 12)
     xmax = end_date
     ax.set_xlim(xmin, xmax)
-    # ax.set_ylim(-20, 50)
     ax.set_ylim(-30, 30)
 
-    ax.title('Iteration: {}'.format(i))
 
-    plt.draw()
-    print('REGENERATING PLOT')
+if __name__ == "__main__":
+    plt.ion()
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    counter = 0
+    while True:
+        update_plot()
+        counter += 1
+        plt.title("Iteration {} | {}".format(counter, dt.datetime.now()))
+        plt.pause(3)
+        plt.draw()
