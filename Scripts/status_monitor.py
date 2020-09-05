@@ -18,6 +18,11 @@ from plot_stylers import *
 
 from hrcsentinel import hrccore as hrc
 hrc.styleplots()
+labelsizes = 12
+plt.rcParams['axes.titlesize'] = labelsizes
+plt.rcParams['axes.labelsize'] = labelsizes
+plt.rcParams['xtick.labelsize'] = labelsizes
+plt.rcParams['ytick.labelsize'] = labelsizes
 
 
 # allow_subset=True should let us draw more data points
@@ -101,7 +106,7 @@ def update_plot():
     current = fetch.get_telem(['2PRBSVL', '2PRBSCR'], '2020:220')
     current_times = hrc.convert_chandra_time(current['2PRBSCR'].times)
     ax3.plot_date(
-        current_times, current['2PRBSCR'].vals, markersize=markersize)
+        current_times, current['2PRBSCR'].vals, color=blue, markersize=markersize)
 
     ax3.axvline(eventdate, color='gray')
     ax3.axvline(hrc_poweroff_date, color='gray')
@@ -110,19 +115,24 @@ def update_plot():
     ax3.axvline(time_of_second_shutdown, color='gray')
     ax3.axvline(time_of_cap_1543, color='gray')
 
+    ax3.set_ylim(0, 3)
     ax3.set_ylabel('Redundant Bus Current (A)')
 
     ax3.set_xlabel('Date (UTC)')
+    ax1.text(xmin, 32, 'Bus Voltages', color='slategray', fontsize=12)
+    ax2.text(xmin, 51, 'Temperatures', color='slategray', fontsize=12)
+    ax3.text(xmin, 3.1, 'S/C Redundant Bus Current',
+             color='slategray', fontsize=12)
 
 
 if __name__ == "__main__":
     plt.ion()
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(18, 12), sharex=True)
-    plt.tight_layout()
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
+    # plt.tight_layout()
     counter = 0
     while True:
         update_plot()
         counter += 1
-        plt.suptitle("Iteration {} | {}".format(counter, dt.datetime.now()))
+        # plt.suptitle("Iteration {} | {}".format(counter, dt.datetime.now()))
         plt.pause(60)
         plt.draw()
