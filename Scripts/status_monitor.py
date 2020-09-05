@@ -131,6 +131,7 @@ if __name__ == "__main__":
     # plt.tight_layout()
     counter = 0
     while True:
+        # plt.clf()
         update_plot()
         counter += 1
         # plt.suptitle("Iteration {} | {}".format(counter, dt.datetime.now()))

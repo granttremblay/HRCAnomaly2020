@@ -91,6 +91,12 @@ spacecraft_orbit_pseudomsids = ["Dist_SatEarth",  # Chandra-Earth distance (from
                                 "Point_SunCentAng"
                                 ]
 
+motor_msids = ["2SCTHAST",
+               "2SMOIAST",
+               "2SMOTAST",
+               "2MSDRAMD"]
+
+
 # Times flagged as Secondary Science Corruption
 secondary_science_corruption = ["HRC_SS_HK_BAD"]
 
@@ -103,3 +109,30 @@ mission_events = ["obsids",
                   "safe_suns",
                   "scs107s",
                   "major_events"]
+
+
+dashboard_msids = [["2P24VBVL", "2P15VBVL", "2N15VBVL", "2P05VBVL"],
+                   ["2PRBSVL"],
+                   ["2PRBSCR"],
+                   ["2PMT1T", "2PMT2T"],
+                   ["2DTSTATT", "2DCENTRT"],
+                   ["2FHTRMZT", "2FRADPYT"],
+                   ["2CHTRPZT", "2CEAHVPT"],
+                   ["2SPINATM", "2IMINATM"],
+                   ["2LVPLATM"],
+                   ["2SPHVATM", "2IMHVATM"],
+                   ["2TLEV1RT", "2VLEV1RT", "2SHEV1RT"],
+                   ["2SHEV1RT"]]
+
+dashboard_tiles = ["Bus Voltages",
+                   "S/C Bus Voltage",
+                   "S/C Bus Current",
+                   "PMT Temperatures",
+                   "Detector Housing Temp",
+                   "FEA Temps",
+                   "CEA Temps",
+                   "Spec & Im Det Temps",
+                   "LVPS Plate Temp",
+                   "Spec & Im HVPS Temps",
+                   "Event Rates",
+                   "Shield Rate"]
