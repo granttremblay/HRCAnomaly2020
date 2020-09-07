@@ -8,6 +8,7 @@ import matplotlib.dates as mdate
 from matplotlib import gridspec
 
 import matplotlib.pyplot as plt
+import mpld3
 
 import numpy as np
 import pandas as pd
@@ -44,8 +45,9 @@ for i in range(3):
                 data[msid].times), data[msid].vals, markersize=1, label=msid)
             ax.axvline(time_of_cap_1543, color='gray')
             ax.format_xdata = mdate.DateFormatter('%m-%d')
-            ax.legend(prop={'size': 6})
+            ax.legend(prop={'size': 8})
             ax.set_title('{}'.format(
-                dashboard_tiles[plotnum]), color=gggray, loc='center')
+                dashboard_tiles[plotnum]), color='gray', loc='center')
 
 plt.show()
+# mpld3.show()

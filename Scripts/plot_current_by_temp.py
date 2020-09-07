@@ -28,25 +28,31 @@ fetch.data_source.set('cxc', 'maude allow_subset={}'.format(allow_subset))
 with fetch.data_source('maude allow_subset=False'):
     dat = fetch.MSIDset(['2FHTRMZT', '2CHTRPZT', '2PRBSCR'],
                         '2020:245')
+    dat = fetch.get_telem(['2FHTRMZT', '2PRBSCR'], start='2020:245')
 dat.interpolate()
+
+
 # intersection_indices = np.intersect1d(
 #     dat['2PRBSCR'].times, dat['2FHTRMZT'].times, return_indices=True)
 
 fig, ax = plt.subplots(figsize=(20, 10))
 
-x = dat['2CHTRPZT'].vals-273.15
-y = dat['2PRBSCR'].vals
+# x = dat['2CHTRPZT'].vals-273.15
+# y = dat['2PRBSCR'].vals
 
+x = dat['2FHTRMZT'].vals
+y = dat['2PRBSCR'].vals
 
 ax.scatter(x, y)
 # Fit a best-fit
 m, b = np.polyfit(x, y, 1)
 ax.plot(x, m*x + b, color=blue)
 
-ax.set_xlabel('CEA Box Temp 2CHTRPZT (C)')
+# ax.set_xlabel('CEA Box Temp 2CHTRPZT (C)')
+ax.set_xlabel('FEA Box Temp 2FHTRMZT (C)')
 ax.set_ylabel('S/C Redundant Bus Current 2PRBSCR (A)')
 plt.title('Data Following Side B Swap')
 
-ax.text(20, 1.9, 'Slope of best fit is {} mA / C'.format(np.round(m, 4)), color='dimgray')
+ax.text(21, 1.9, 'Slope of best fit is {} mA / C'.format(np.round(m, 4)), color='dimgray')
 plt.tight_layout()
 plt.show()

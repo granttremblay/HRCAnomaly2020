@@ -48,11 +48,11 @@ with fetch.data_source('cxc', 'maude allow_subset={}'.format(allow_subset)):
     dat = fetch.get_telem(
         ['2PRBSVL', '2PRBSCR', '2S2HVST', '2S2HVLV', '2SHEV1RT'], '2020:220')
 plt.clf()
-dat['2PRBSVL'].plot(label='2PRBSVL', color=red)
-dat['2PRBSCR'].plot(label='2PRBSCR', color=blue)
-dat['2SHEV1RT'].plot(label='Shield Rate', color=purple)
-dat['2S2HVST'].plot(label='2S2HVST', color=yellow)
-dat['2S2HVLV'].plot(label='2S2HVLV', color='black')
+dat['2PRBSVL'].plot(label='2PRBSVL', color=red, linewidth=2.0)
+dat['2PRBSCR'].plot(label='2PRBSCR', color=blue, linewidth=2.0)
+dat['2SHEV1RT'].plot(label='Shield Rate', color=purple, linewidth=2.0)
+dat['2S2HVST'].plot(label='2S2HVST', color=yellow, linewidth=2.0)
+# dat['2S2HVLV'].plot(label='2S2HVLV', color='black', linewidth=2.0)
 
 
 plt.axvline(eventdate, color='gray')
@@ -61,7 +61,7 @@ plt.axvline(cap_step_2, color='gray')
 plt.axvline(time_of_second_anomaly, color='gray')
 plt.axvline(time_of_second_shutdown, color='gray')
 plt.axvline(time_of_cap_1543, color='gray')
-plt.legend()
+# plt.legend()
 plt.tight_layout()
 plt.show()
 
@@ -83,31 +83,6 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
-# PLOT RELEVANT TEMPERATURES
-with fetch.data_source('cxc'):
-    dat = fetch.MSIDset(['2FHTRMZT', '2CHTRPZT', '2PRBSCR'],
-                        '2020:232', filter_bad=False, stat='5min')
-fig, ax = plt.subplots()
-ax.scatter(dat['2PRBSCR'].vals, dat['2FHTRMZT'].vals,
-           color=yellow, markersize=markersize)
-# ax.plot_date(hrc.convert_chandra_time(
-#     dat['2CHTRPZT'].times), dat['2CHTRPZT'].vals/20, label='2CHTRPZT', color=purple, markersize=markersize)
-# ax.plot_date(hrc.convert_chandra_time(
-#     dat['2PRBSCR'].times), dat['2PRBSCR'].vals, label='2PRBSCR', color=blue, markersize=markersize)
-ax.legend()
-# dat['2FHTRMZT'].plot(label='2FHTRMZT', color=yellow)
-# dat['2CHTRPZT'].plot(label='2CHTRPZT', color=purple)
-# dat['2PRBSCR'].plot(label='2PRBSCR', color=blue)
-
-ax.axvline(eventdate, color='gray')
-ax.axvline(hrc_poweroff_date, color='gray')
-ax.axvline(cap_step_2, color='gray')
-ax.axvline(time_of_second_anomaly, color='gray')
-ax.axvline(time_of_second_shutdown, color='gray')
-ax.axvline(time_of_cap_1543, color='gray')
-ax.legend()
-plt.tight_layout()
-plt.show()
 
 colors_to_use = [yellow, blue, green, red]
 
