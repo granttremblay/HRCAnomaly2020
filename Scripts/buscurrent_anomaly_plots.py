@@ -46,12 +46,13 @@ plt.show()
 # PLOT DETECTOR RATES OVER MISSION LIFETIME
 with fetch.data_source('cxc', 'maude allow_subset={}'.format(allow_subset)):
     dat = fetch.get_telem(
-        ['2PRBSVL', '2PRBSCR', '2S2HVST', '2S2HVLV', '2SHEV1RT'], '2020:220')
+        ['2PRBSVL', '2PRBSCR', '2S2HVST', '2PMT2T', '2S2HVLV', '2SHEV1RT'], '2020:220')
 plt.clf()
-dat['2PRBSVL'].plot(label='2PRBSVL', color=red, linewidth=2.0)
+# dat['2PRBSVL'].plot(label='2PRBSVL', color=red, linewidth=2.0)
 dat['2PRBSCR'].plot(label='2PRBSCR', color=blue, linewidth=2.0)
 dat['2SHEV1RT'].plot(label='Shield Rate', color=purple, linewidth=2.0)
-dat['2S2HVST'].plot(label='2S2HVST', color=yellow, linewidth=2.0)
+# dat['2S2HVST'].plot(label='2S2HVST', color=yellow, linewidth=2.0)
+dat['2PMT2T'].plot(label='2PMT2T', color=yellow, linewidth=2.0)
 # dat['2S2HVLV'].plot(label='2S2HVLV', color='black', linewidth=2.0)
 
 

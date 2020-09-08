@@ -26,8 +26,8 @@ fetch.data_source.set('cxc', 'maude allow_subset={}'.format(allow_subset))
 
 # PLOT RELEVANT TEMPERATURES
 with fetch.data_source('maude allow_subset=False'):
-    dat = fetch.MSIDset(['2FHTRMZT', '2CHTRPZT', '2PRBSCR'],
-                        '2020:245')
+    # dat = fetch.MSIDset(['2FHTRMZT', '2CHTRPZT', '2PRBSCR'],
+    #                     '2020:245')
     dat = fetch.get_telem(['2FHTRMZT', '2PRBSCR'], start='2020:245')
 dat.interpolate()
 
