@@ -42,3 +42,5 @@ human_time_of_second_shutdown = mdate.num2date(
     time_of_second_shutdown)  # Just to have a human-readable time
 
 time_of_cap_1543 = dt.datetime(2020, 8, 31, 17, 50)
+
+time_of_cap_1545a = dt.datetime(2020, 9, 7, 23, 54)
