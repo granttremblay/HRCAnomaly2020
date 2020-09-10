@@ -15,6 +15,9 @@ end_date = dt.date.today() + dt.timedelta(days=2)
 sunday_pass = dt.datetime(2020, 8, 24, 2, 30)
 sunday_pass_end = dt.datetime(2020, 8, 24, 3, 27, 34)
 
+oneweek_pre_anomaly = dt.datetime(2020, 8, 18, 0)
+oneday_pre_anomaly = dt.datetime(2020, 8, 23, 0)
+
 eventdate = mdate.num2date(hrc.convert_chandra_time([714627954.9676153660]))
 fa6_heater_poweroff = dt.datetime(2020, 8, 24, 14, 38)
 hrc_poweroff_date = dt.datetime(2020, 8, 24, 15, 7, 26)

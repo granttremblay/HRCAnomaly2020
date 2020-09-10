@@ -30,8 +30,9 @@ from hrcsentinel import hrccore as hrc
 
 # allow_subset=True should let us draw more data points
 # fetch.data_source.set('maude allow_subset=True')
-fetch.data_source.set('cxc', 'maude allow_subset=True')
-# fetch.data_source.set('maude')
+# fetch.data_source.set('cxc', 'maude allow_subset=True')
+# Be careful if you mix cxc and maude telemetry. There is an offset between the DN-->count conversion.
+fetch.data_source.set('maude')
 
 hrc.styleplots()
 labelsizes = 8
@@ -89,7 +90,7 @@ if __name__ == "__main__":
 
     # Must be a DATETIME object! Beware, anything like datetime.now() will return local time, not UTC!
     plot_start = dt.datetime(2020, 9, 7, 12)
-    plot_end = dt.date.today() + dt.timedelta(days=1.5)
+    plot_end = dt.date.today() + dt.timedelta(days=2)
 
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
 

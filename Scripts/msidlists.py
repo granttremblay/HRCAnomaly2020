@@ -49,6 +49,20 @@ temperature_msids = [
 ]
 
 
+davec_temperature_msids = [
+    "2PMT1T",  # PMT 1 EED Temperature (c)
+    "2PMT2T",  # PMT 2 EED Temperature (c)
+    "2DTSTATT",   # OutDet1 Temperature (c)
+    "2DCENTRT",  # OutDet2
+    "2FHTRMZT",  # FEABox EED Temperature (c)
+    "2CHTRPZT",  # CEABox EED Temperature (c)
+    "2FRADPYT",  # +Y EED Temperature (c)
+    "2CEAHVPT",  # -Y EED Temperature (c)
+    "2CONDMXT",  # Conduit Temperature (c)
+    "2UVLSPXT"  # Snout Temperature (c)
+]
+
+
 rate_msids = ['2TLEV1RT',  # The Total Event Rate
               '2VLEV1RT',  # VAlie Event Rate
               '2SHEV1RT',  # Shield Event Rate
