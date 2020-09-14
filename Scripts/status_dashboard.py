@@ -32,7 +32,7 @@ from hrcsentinel import hrccore as hrc
 # fetch.data_source.set('maude allow_subset=True')
 # fetch.data_source.set('cxc', 'maude allow_subset=True')
 # Be careful if you mix cxc and maude telemetry. There is an offset between the DN-->count conversion.
-fetch.data_source.set('maude')
+# fetch.data_source.set('maude')
 
 hrc.styleplots()
 labelsizes = 8
@@ -50,11 +50,12 @@ def convert_to_doy(datetime_start):
     year = datetime_start.year
     day_of_year = datetime_start.timetuple().tm_yday
     doystring = '{}:{}'.format(year, day_of_year)
+    print(doystring)
 
     return doystring
 
 
-def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.date.today() + dt.timedelta(days=2)):
+def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.date.today() + dt.timedelta(days=2), missionwide=False):
     plotnum = -1
     for i in range(3):
         for j in progressbar(range(4)):
@@ -66,19 +67,31 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                 # print("Fetching {}".format(msid), end="")
                 sys.stdout = open(os.devnull, "w")
                 # Fetch the telemetry
-                data = fetch.get_telem(msid, start=convert_to_doy(plot_start))
+                if missionwide is False:
+                    data = fetch.get_telem(
+                        msid, start=convert_to_doy(plot_start))
+                    date_format = mdate.DateFormatter('%d %H')
+                elif missionwide is True:
+                    print('hello')
+                    data = fetch.get_telem(
+                        msid, start='2000:001', sampling='daily', max_fetch_Mb=10000, max_output_Mb=10000)
+                    date_format = mdate.DateFormatter('%y-%m')
                 # Allow printing again
                 sys.stdout = sys.__stdout__
 
                 ax.plot_date(hrc.convert_chandra_time(
                     data[msid].times), data[msid].vals, markersize=1, label=msid)
 
+                if missionwide is True:
+                    ax.axhline(data[msid].vals[-1], color=green)
+
                 ax.set_xlim(plot_start, plot_end)
+                ax.axvline(eventdate, color=red)
+                ax.axvline(time_of_second_anomaly, color=red)
                 ax.axvline(time_of_cap_1543, color='gray')
                 ax.axvline(dt.datetime.now(pytz.utc), color='gray', alpha=0.5)
 
-                myFmt = mdate.DateFormatter('%d %H')
-                plt.gca().xaxis.set_major_formatter(myFmt)
+                plt.gca().xaxis.set_major_formatter(date_format)
                 ax.legend(prop={'size': 8}, loc=3)
                 ax.set_title('{}'.format(
                     dashboard_tiles[plotnum]), color='slategray', loc='center')
@@ -89,7 +102,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
 if __name__ == "__main__":
 
     # Must be a DATETIME object! Beware, anything like datetime.now() will return local time, not UTC!
-    plot_start = dt.datetime(2020, 9, 7, 12)
+    plot_start = dt.datetime(2020, 9, 8, 12)
     plot_end = dt.date.today() + dt.timedelta(days=2)
 
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
@@ -99,6 +112,7 @@ if __name__ == "__main__":
     # plt.tight_layout()
     counter = 0
     while True:
+        fetch.data_source.set('maude')
         print("Refreshing dashboard (iteration {}) at {}".format(
             counter, dt.datetime.now()))
         update_plot(counter, plot_start, plot_end)
@@ -107,6 +121,19 @@ if __name__ == "__main__":
         plt.draw()
         try:
             plt.savefig(fig_save_directory + 'status.png', dpi=300)
+            print("Updated plot: {}status.png".format(fig_save_directory))
+        except Exception as ex:
+            print('Error: Cannot reach HEAD Network. Try MOUNTEAD?')
+            print(ex)
+
+        fetch.data_source.set('cxc')
+        update_plot(counter, plot_start=dt.datetime(2000, 1, 1),
+                    plot_end=None, missionwide=True)
+        plt.tight_layout()
+        plt.draw()
+
+        try:
+            plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
             print("Updated plot: {}status.png".format(fig_save_directory))
         except Exception as ex:
             print('Error: Cannot reach HEAD Network. Try MOUNTEAD?')
