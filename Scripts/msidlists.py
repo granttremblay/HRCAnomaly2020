@@ -136,7 +136,7 @@ dashboard_msids = [["2P24VBVL", "2P15VBVL", "2N15VBVL", "2P05VBVL"],
                    ["2LVPLATM"],
                    ["2SPHVATM", "2IMHVATM"],
                    ["2TLEV1RT", "2VLEV1RT", "2SHEV1RT"],
-                   ["2SHEV1RT"]]
+                   ["AOSARES1"]]
 
 dashboard_tiles = ["Bus Voltages",
                    "S/C Bus Voltage",
@@ -148,5 +148,18 @@ dashboard_tiles = ["Bus Voltages",
                    "Spec & Im Det Temps",
                    "LVPS Plate Temp",
                    "Spec & Im HVPS Temps",
-                   "Event Rates",
-                   "Shield Rate"]
+                   "Shield & Event Rates",
+                   "Spacecraft Pitch (Solar Array Angle)"]
+
+dashboard_units = ["Voltage (V)",
+                   "Voltage (V)",
+                   "Current (A)",
+                   "Temperature (C)",
+                   "Temperature (C)",
+                   "Temperature (C)",
+                   "Temperature (C)",
+                   "Temperature (C)",
+                   "Temperature (C)",
+                   "Temperature (C)",
+                   r"Counts s$^{-1}$",
+                   "Degrees"]

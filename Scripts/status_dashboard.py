@@ -136,8 +136,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
 if __name__ == "__main__":
 
     # Must be a DATETIME object! Beware, anything like datetime.now() will return local time, not UTC!
-    # plot_start = dt.datetime(2020, 9, 8, 12)
-    plot_start = dt.datetime(2000, 1, 1)
+    plot_start = dt.datetime(2020, 9, 8, 12)
     plot_end = dt.date.today() + dt.timedelta(days=2)
 
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
