@@ -28,9 +28,9 @@ from hrcsentinel import hrccore as hrc
 
 
 # allow_subset=True should let us draw more data points
-# fetch.data_source.set('maude allow_subset=True')
-# fetch.data_source.set('cxc', 'maude allow_subset=True')
-# Be careful if you mix cxc and maude telemetry. There is an offset between the DN-->count conversion.
+# fetch.data_source.set('maude allow_subset=True') fetch.data_source.set('cxc',
+# 'maude allow_subset=True') Be careful if you mix cxc and maude telemetry.
+# There is an offset between the DN-->count conversion.
 # fetch.data_source.set('maude')
 
 hrc.styleplots()
@@ -43,8 +43,8 @@ plt.rcParams['ytick.labelsize'] = labelsizes
 
 def convert_chandra_time(rawtimes):
     """
-    Convert input CXC time (seconds since 1998.0) to the time base required for the matplotlib
-    plot_date function (days since start of the Year 1 A.D).
+    Convert input CXC time (seconds since 1998.0) to the time base required for
+    the matplotlib plot_date function (days since start of the Year 1 A.D).
     """
 
     # rawtimes is in units of CXC seconds, or seconds since 1998.0
@@ -73,9 +73,9 @@ def convert_chandra_time(rawtimes):
 
 def convert_to_doy(datetime_start):
     '''
-    Return a string like '2020:237' that will be passed to start= in fetch.get_telem() and fetch.MSID().
-    Note that you have to zero-pad the day number e.g. 2020:002 instead of 2020:2, otherwise
-    the pull will fail.
+    Return a string like '2020:237' that will be passed to start= in
+    fetch.get_telem() and fetch.MSID(). Note that you have to zero-pad the day
+    number e.g. 2020:002 instead of 2020:2, otherwise the pull will fail.
     '''
 
     year = datetime_start.year
@@ -99,7 +99,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                     msid, start=convert_to_doy(plot_start), sampling=sampling, max_fetch_Mb=100000, max_output_Mb=100000, quiet=True)
 
                 print('Fetched {} from {} at {} resolution.'.format(
-                    msid, convert_to_doy(plot_start), sampling.upper), end='\r', flush=True)
+                    msid, convert_to_doy(plot_start), sampling.upper()), end='\r', flush=True)
                 # Clear the
                 sys.stdout.write("\033[K")
                 # Plot 12 is Pitch. That's a mess of points over the mission lifetime. So plot shield instead.
@@ -110,6 +110,8 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                 ax.plot_date(convert_chandra_time(
                     data[msid].times), data[msid].vals, markersize=1, label=msid)
 
+                # Plot a HORIZONTAL line at location of last data point. Useful
+                # for showing where we are w.r.t. the mission lifetime
                 if current_hline is True:
                     ax.axhline(data[msid].vals[-1], color=green)
 
@@ -125,6 +127,10 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                 ax.axvline(dt.datetime.now(pytz.utc),
                            color='gray', alpha=0.5)
 
+                if plotnum == 0:
+                    ax.text(dt.datetime.now(pytz.utc), 27,
+                            'Now', fontsize=8, color='slategray')
+
                 plt.gca().xaxis.set_major_formatter(date_format)
                 ax.legend(prop={'size': 8}, loc=3)
                 ax.set_title('{}'.format(
@@ -133,11 +139,16 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                     counter, dt.datetime.now().strftime("%Y-%b-%d %H:%M:%S")), color='slategray', size=8)
 
 
-if __name__ == "__main__":
+def main():
+    '''
+    The main event loop. Sets plotting parameters and data sources, and makes
+    both plots. Saves them to preferred directories. Pauses the loop for a few
+    minutes of sleep to avoid overwhelming MAUDE and wasting cycles. 
+    '''
 
-    # Must be a DATETIME object! Beware, anything like datetime.now() will return local time, not UTC!
-    plot_start = dt.datetime(2020, 9, 8, 12)
-    plot_end = dt.date.today() + dt.timedelta(days=2)
+    # Must be a DATETIME object! Beware, anything like datetime.now() will
+    # return local time, not UTC!
+    plot_end_today = dt.date.today() + dt.timedelta(days=2)
 
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
     # fig_save_directory = '/Users/grant/Desktop/'
@@ -148,18 +159,26 @@ if __name__ == "__main__":
     counter = 0
 
     while True:
+
         fetch.data_source.set('maude')
+
         print("Refreshing dashboard (Iteration {}) at {}".format(
             counter, dt.datetime.now().strftime("%Y-%b-%d %H:%M:%S")), flush=True)
-        update_plot(counter, plot_start, plot_end, sampling='full')
+
+        update_plot(counter, plot_start=dt.datetime(2020, 9, 8, 12),
+                    plot_end=plot_end_today, sampling='full')
+
         counter += 1
+
         plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
 
         fetch.data_source.set('cxc')
+
         update_plot(counter, plot_start=dt.datetime(
-            2006, 1, 1), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%y-%m'), current_hline=True)
+            2000, 1, 1), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%y-%m'), current_hline=True)
+
         plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
@@ -174,10 +193,13 @@ if __name__ == "__main__":
 
         sleep_period_seconds = 120
         for i in range(0, sleep_period_seconds):
-            # Normally output to a file or the console is buffered, with text output at least until you print a newline.
-            # The flush makes sure that any output that is buffered goes to the destination.
+            # Normally output to a file or the console is buffered, with text
+            # output at least until you print a newline. The flush makes sure
+            # that any output that is buffered goes to the destination.
             print('Refreshing plots in {} seconds...'.format(
                 sleep_period_seconds-i), end="\r", flush=True)
             time.sleep(1)
 
-        # plt.pause(120)
+
+if __name__ == "__main__":
+    main()
