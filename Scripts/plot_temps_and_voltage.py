@@ -12,7 +12,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from hrcsentinel import hrccore as hrc
-from anomaly_variables import *
+
+from msidlists import *
+from event_times import *
+from plot_stylers import *
 
 # allow_subset=True should let us draw more data points
 fetch.data_source.set('maude allow_subset=True')
@@ -156,14 +159,26 @@ rasterized = True
 markersize = 2
 
 
+# # ax.axvline(sunday_pass, color='gray')
+# # ax.axvline(sunday_pass_end, color='gray', linestyle='dashed')
+# ax.axvline(eventdate, color='red')
+# # ax.axvline(hrc_poweroff_date, color='gray')
+# # ax.axvline(cap_step_2, color='gray')
+# # ax.axvline(thursday_early_pass, color='gray')
+# # ax.axvline(thursday_early_pass_end, color='gray', linestyle='dashed')
+# ax.axvline(time_of_second_anomaly, color=red)
+
+
 # ax.axvline(sunday_pass, color='gray')
 # ax.axvline(sunday_pass_end, color='gray', linestyle='dashed')
-ax.axvline(eventdate, color='red')
-# ax.axvline(hrc_poweroff_date, color='gray')
+ax.axvline(eventdate, color=red)
+ax.axvline(hrc_poweroff_date, color='gray')
 # ax.axvline(cap_step_2, color='gray')
 # ax.axvline(thursday_early_pass, color='gray')
 # ax.axvline(thursday_early_pass_end, color='gray', linestyle='dashed')
+
 ax.axvline(time_of_second_anomaly, color=red)
+ax.axvline(time_of_secont_shutdown, color='gray')
 
 n_lines = len(temperature_msids)
 color_idx = np.linspace(0, 1, n_lines)
@@ -185,21 +200,42 @@ for i, msid in zip(color_idx, temperature_msids):
         ax.plot_date(times, vals, markersize=markersize,
                      rasterized=rasterized, color=plt.cm.tab20(i), alpha=temp_alpha, label=msid.MSID)
 
-vmsid = fetch.MSID('2P15VAVL', start='2020:225')
-vtimes = hrc.convert_chandra_time(vmsid.times)
-ax.plot_date(vtimes, vmsid.vals, color=blue, markersize=markersize,
-             rasterized=rasterized, label='+15 V Bus (2P15VAVL)', alpha=voltage_alpha)
+
+ax2 = plt.twinx(ax)
+
+dat = fetch.get_telem('AOSARES1')
+ax2.plot_date(hrc.convert_chandra_time(dat['AOSARES1'].times), dat['AOSARES1'].vals,
+              markersize=0, linestyle='-', linewidth=1.2, color='gray', alpha=0.8)
+ax2.set_ylabel('Spacecraft Pitch (degrees)')
+
+ax2.grid('off')
+lgnd = ax.legend(loc=2, fancybox=True, framealpha=1)
+for i in range(len(lgnd.legendHandles)):
+    lgnd.legendHandles[i]._legmarker.set_markersize(20)
+
+ax.set_ylabel('Temperature (C)')
+ax.set_xlabel('Date (UTC)')
+ax.tick_params(axis='x', which='major', pad=15)
 
 
-vmsid = fetch.MSID('2N15VAVL', start='2020:225')
-vtimes = hrc.convert_chandra_time(vmsid.times)
-ax.plot_date(vtimes, vmsid.vals + 7, color=red, markersize=markersize,
-             rasterized=rasterized, label='-15 V Bus + 30 V (2N15VAVL)', alpha=voltage_alpha)
+ax.set_ylim(-20, 50)
 
-vmsid = fetch.MSID('2P24VAVL', start='2020:225')
-vtimes = hrc.convert_chandra_time(vmsid.times)
-ax.plot_date(vtimes, vmsid.vals - 20, color=yellow, markersize=markersize,
-             rasterized=rasterized, label='+24 V Bus (2P25VAVL)', alpha=voltage_alpha)
+
+# vmsid = fetch.MSID('2P15VAVL', start='2020:225')
+# vtimes = hrc.convert_chandra_time(vmsid.times)
+# ax.plot_date(vtimes, vmsid.vals, color=blue, markersize=markersize,
+#              rasterized=rasterized, label='+15 V Bus (2P15VAVL)', alpha=voltage_alpha)
+
+
+# vmsid = fetch.MSID('2N15VAVL', start='2020:225')
+# vtimes = hrc.convert_chandra_time(vmsid.times)
+# ax.plot_date(vtimes, vmsid.vals + 7, color=red, markersize=markersize,
+#              rasterized=rasterized, label='-15 V Bus + 30 V (2N15VAVL)', alpha=voltage_alpha)
+
+# vmsid = fetch.MSID('2P24VAVL', start='2020:225')
+# vtimes = hrc.convert_chandra_time(vmsid.times)
+# ax.plot_date(vtimes, vmsid.vals - 20, color=yellow, markersize=markersize,
+#              rasterized=rasterized, label='+24 V Bus (2P25VAVL)', alpha=voltage_alpha)
 
 
 # ax.text(mdate.num2date(time_of_second_anomaly - 3600), 15.2,
@@ -209,8 +245,6 @@ lgnd = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 for i in range(len(lgnd.legendHandles)):
     lgnd.legendHandles[i]._legmarker.set_markersize(20)
 
-ax.set_ylabel('Temperature (C)')
-ax.set_xlabel('Date (UTC)')
 
 xmin = dt.datetime(2020, 8, 23, 12)
 xmax = dt.datetime(2020, 8, 30, 12)

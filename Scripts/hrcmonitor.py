@@ -146,10 +146,6 @@ def main():
     minutes of sleep to avoid overwhelming MAUDE and wasting cycles. 
     '''
 
-    # Must be a DATETIME object! Beware, anything like datetime.now() will
-    # return local time, not UTC!
-    plot_end_today = dt.date.today() + dt.timedelta(days=2)
-
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
     # fig_save_directory = '/Users/grant/Desktop/'
 
@@ -164,6 +160,10 @@ def main():
 
         print("Refreshing dashboard (Iteration {}) at {}".format(
             counter, dt.datetime.now().strftime("%Y-%b-%d %H:%M:%S")), flush=True)
+
+        # Must be a DATETIME object! Beware, anything like datetime.now() will
+        # return local time, not UTC!
+        plot_end_today = dt.date.today() + dt.timedelta(days=2)
 
         update_plot(counter, plot_start=dt.datetime(2020, 9, 8, 12),
                     plot_end=plot_end_today, sampling='full')
