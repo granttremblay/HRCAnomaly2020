@@ -49,6 +49,33 @@ temperature_msids = [
 ]
 
 
+critical_anomaly_temps = [
+    # "2FE00ATM",  # Front-end Temperature (c)
+    # "2LVPLATM",  # LVPS Plate Temperature (c)
+    # "2IMHVATM",  # Imaging Det HVPS Temperature (c)
+    # "2IMINATM",  # Imaging Det Temperature (c)
+    # "2SPHVATM",  # Spectroscopy Det HVPS Temperature (c)
+    # "2SPINATM",  # Spectroscopy Det Temperature (c)
+    # "2PMT1T",  # PMT 1 EED Temperature (c)
+    # "2PMT2T",  # PMT 2 EED Temperature (c)
+    # "2DCENTRT",  # Outdet2 EED Temperature (c)
+    "2FHTRMZT",  # FEABox EED Temperature (c)
+    "2CHTRPZT",  # CEABox EED Temperature (c)
+    "2FRADPYT",  # +Y EED Temperature (c)
+    "2CEAHVPT",  # -Y EED Temperature (c)
+    "2CONDMXT",  # Conduit Temperature (c)
+    "2UVLSPXT",  # Snout Temperature (c)
+    # CEA Temperature 1 (c) THESE HAVE FEWER POINTS AS THEY WERE RECENTLY ADDED BY TOM
+    "2CE00ATM",
+    # CEA Temperature 2 (c) THESE HAVE FEWER POINTS AS THEY WERE RECENTLY ADDED BY TOM
+    "2CE01ATM",
+    "2FEPRATM",  # FEA PreAmp (c)
+    # Selected Motor Temperature (c) THIS IS ALWAYS 5 DEGREES THROUGHOUT ENTIRE MISSION
+    "2SMTRATM",
+    "2DTSTATT"   # OutDet1 Temperature (c)
+]
+
+
 davec_temperature_msids = [
     "2PMT1T",  # PMT 1 EED Temperature (c)
     "2PMT2T",  # PMT 2 EED Temperature (c)
