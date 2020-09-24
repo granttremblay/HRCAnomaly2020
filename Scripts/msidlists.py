@@ -152,7 +152,7 @@ mission_events = ["obsids",
                   "major_events"]
 
 
-dashboard_msids = [["2P24VBVL", "2P15VBVL", "2N15VBVL", "2P05VBVL"],
+dashboard_msids = [["2P24VBVL", "2P15VBVL", "2N15VBVL", "2P05VBVL", "2C05PALV", "2C15PALV", "2C15NALV", "2C24PALV"],
                    ["2PRBSVL"],
                    ["2PRBSCR"],
                    ["2PMT1T", "2PMT2T"],

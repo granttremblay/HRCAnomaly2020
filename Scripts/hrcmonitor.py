@@ -24,18 +24,20 @@ from event_times import *
 from plot_stylers import *
 
 
-from hrcsentinel import hrccore as hrc
-
-
 # allow_subset=True should let us draw more data points
 # fetch.data_source.set('maude allow_subset=True') fetch.data_source.set('cxc',
 # 'maude allow_subset=True') Be careful if you mix cxc and maude telemetry.
 # There is an offset between the DN-->count conversion.
 # fetch.data_source.set('maude')
 
-hrc.styleplots()
+
+plt.style.use('ggplot')
 labelsizes = 8
-plt.rcParams['axes.titlesize'] = labelsizes + 2
+plt.rcParams['font.sans-serif'] = 'Arial'
+plt.rcParams['font.size'] = labelsizes
+
+
+plt.rcParams['axes.titlesize'] = labelsizes
 plt.rcParams['axes.labelsize'] = labelsizes
 plt.rcParams['xtick.labelsize'] = labelsizes
 plt.rcParams['ytick.labelsize'] = labelsizes
@@ -105,11 +107,11 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
 
                 if sampling == 'full':
                     ax.plot_date(convert_chandra_time(
-                        data[msid].times), data[msid].vals, markersize=1, label=msid, zorder=1)
+                        data[msid].times), data[msid].vals, markersize=1, label=msid, zorder=1, rasterized=True)
                 elif sampling == 'daily':
-                    # Then plot the maxes
+                    # Then plot the means
                     ax.plot_date(convert_chandra_time(
-                        data[msid].times), data[msid].maxes, markersize=1, label=msid, zorder=1)
+                        data[msid].times), data[msid].means, markersize=1, label=msid, zorder=1, rasterized=True)
                 # Plot a HORIZONTAL line at location of last data point.
                 if current_hline is True:
                     if missionwide is False:
@@ -133,7 +135,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                 # It will have already plotted pitch. So just clear it.
                 ax.clear()
                 ax.plot_date(convert_chandra_time(
-                    data['2SHEV1RT'].times), data['2SHEV1RT'].vals, markersize=1, label=msid, zorder=1)
+                    data['2SHEV1RT'].times), data['2SHEV1RT'].vals, markersize=1, label=msid, zorder=1, rasterized=True)
                 with fetch.data_source('maude'):
                     latest_data = fetch.get_telem(
                         '2SHEV1RT', start=convert_to_doy(yesterday), quiet=True)
@@ -154,7 +156,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
 
             plt.gca().xaxis.set_major_formatter(date_format)
 
-            plt.xticks(rotation=40)
+            plt.xticks(rotation=0)
 
             ax.legend(prop={'size': 8}, loc=3)
             ax.set_title('{}'.format(
@@ -169,8 +171,8 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                     ax.set_title('Shield Rate'.format(),
                                  color='slategray', loc='center')
 
-            plt.suptitle('Iteration {} | Updated as of {} EST'.format(
-                counter, dt.datetime.now().strftime("%Y-%b-%d %H:%M:%S")), color='slategray', size=8)
+            plt.suptitle(t='Iteration {} | Updated as of {} EST'.format(
+                counter, dt.datetime.now().strftime("%Y-%b-%d %H:%M:%S")), y=0.99, color='slategray', size=6)
 
 
 def main():
@@ -183,12 +185,13 @@ def main():
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
 
     plt.ion()
-    plt.figure(0, figsize=(16, 7))
+    plt.figure(0, figsize=(17, 8))
 
     counter = 0
 
     while True:
 
+        # fetch.data_source.set('cxc', 'maude allow_subset=False')
         fetch.data_source.set('maude allow_subset=False')
 
         print("Refreshing dashboard (Iteration {}) at {}".format(
@@ -198,40 +201,40 @@ def main():
         two_days_hence = dt.date.today() + dt.timedelta(days=2)
 
         update_plot(counter, plot_start=six_days_ago,
-                    plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d %H'))
+                    plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'))
 
         plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
-        plt.savefig(fig_save_directory + 'status.pdf', dpi=300)
+        plt.savefig(fig_save_directory + 'status.pdf',
+                    dpi=300, rasterized=True)
+        print('Saved Current Status Plots to {}'.format(
+            fig_save_directory), end="\r", flush=True)
+        # Clear the command line manually
+        sys.stdout.write("\033[K")
 
         fetch.data_source.set('cxc')
 
         update_plot(counter, plot_start=dt.datetime(
             2000, 1, 4), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%Y'), current_hline=True, missionwide=True)
 
-        plt.tight_layout()
+        # plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
-        plt.savefig(fig_save_directory + 'status_wide.pdf', dpi=300)
+        plt.savefig(fig_save_directory + 'status_wide.pdf',
+                    dpi=300, rasterized=True)
+        print('Saved Mission-Wide Plots to {}'.format(
+            fig_save_directory), end="\r", flush=True)
+        # Clear the command line manually
+        sys.stdout.write("\033[K")
 
         # fig = plt.gcf()
-        # mpld3.save_html(fig, fig_save_directory + 'interactive_plot.html')
-
-        # try:
-        #     plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
-        #     print("Updated plots at {}".format(
-        #         fig_save_directory),  flush=True)
-        # except Exception as ex:
-        #     print('Error: Cannot reach HEAD Network. Try MOUNTEAD?')
-        #     print(ex)
+        # mpld3.fig_to_html(fig, fig_save_directory + 'interactive_plot.html')
 
         counter += 1
         sleep_period_seconds = 120
         for i in range(0, sleep_period_seconds):
-            # Normally output to a file or the console is buffered, with text
-            # output at least until you print a newline. The flush makes sure
-            # that any output that is buffered goes to the destination.
+            # you need to flush this print statement
             print('Refreshing plots in {} seconds...'.format(
                 sleep_period_seconds-i), end="\r", flush=True)
             time.sleep(1)
