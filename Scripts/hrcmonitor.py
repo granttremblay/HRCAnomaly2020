@@ -98,7 +98,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
             for msid in dashboard_msids[plotnum]:
 
                 data = fetch.get_telem(
-                    msid, start=convert_to_doy(plot_start), sampling=sampling, max_fetch_Mb=100000, max_output_Mb=100000, quiet=True)
+                    msid, start=convert_to_doy(plot_start), sampling=sampling, max_fetch_Mb=100000, max_output_Mb=100000, quiet=True, filter_bad=True)
 
                 print('Fetching from {} at {} resolution: {}'.format(
                     convert_to_doy(plot_start), sampling, msid), end='\r', flush=True)

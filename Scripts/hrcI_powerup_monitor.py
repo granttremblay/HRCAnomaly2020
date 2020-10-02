@@ -59,7 +59,7 @@ def update_plot():
     end_date = dt.date.today() + dt.timedelta(days=2)
     xmax = end_date
     ax1.set_xlim(xmin, xmax)
-    # ax1.set_ylim(-2, 130)
+    ax1.set_ylim(-2, 130)
     # ax1.legend()
 
     ax1.axvline(dt.datetime.now(pytz.utc),
@@ -100,7 +100,7 @@ def update_plot():
 
     ax2.set_xlim(xmin, xmax)
 
-    # ax2.set_ylim(-50, 50)
+    ax2.set_ylim(-50, 50)
 
     current = fetch.get_telem(['2PRBSVL', '2PRBSCR'], '2020:220')
     current_times = hrc.convert_chandra_time(current['2PRBSCR'].times)
@@ -114,7 +114,7 @@ def update_plot():
     ax3.axvline(time_of_second_shutdown, color='gray')
     ax3.axvline(time_of_cap_1543, color='gray')
 
-    # ax3.set_ylim(0, 3)
+    ax3.set_ylim(0, 3)
     ax3.set_ylabel('Redundant Bus Current (A)')
 
     ax3.set_xlabel('Date (UTC)')

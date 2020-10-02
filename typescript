@@ -1,91 +1,0 @@
-Script started on Thu Oct  1 12:49:49 2020
-ls
-]2;grant@symmetry: ~/HRCOps/HRCAnomaly2020]1;..RCAnomaly2020]0;~/HRCOps/HRCAnomaly2020
-[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020[39m
-[35m❯[39m [K[?1h=[?2004hlls[?1l>[?2004l
-]2;ls -G]1;ls]0;HRCAnomaly2020: ls -G[1m[36mData[39;49m[0m          [1m[36mFigures[39;49m[0m       [1m[36mPlots[39;49m[0m         [1m[36mReference[39;49m[0m     typescript
-[1m[36mExcel[39;49m[0m         [1m[36mMisc[39;49m[0m          [1m[36mPresentations[39;49m[0m [1m[36mScreenshots[39;49m[0m
-[1m[36mFOT_Docs[39;49m[0m      [1m[36mNotebooks[39;49m[0m     README.md     [1m[36mScripts[39;49m[0m
-]2;grant@symmetry: ~/HRCOps/HRCAnomaly2020]1;..RCAnomaly2020]0;~/HRCOps/HRCAnomaly2020
-[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020[39m
-[35m❯[39m [K[?1h=[?2004h[A[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020[39m [38;5;242mmaster[38;5;218m[39m
-[35m❯[39m [K[A[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020[39m [38;5;242mmaster[38;5;218m*[39m
-[35m❯[39m [Kccd Scripts[1m/[0m[0m [?1l>[?2004l
-]2;cd Scripts]1;cd]0;HRCAnomaly2020: cd Scripts]2;grant@symmetry: ~/HRCOps/HRCAnomaly2020/Scripts]1;..y2020/Scripts]0;~/HRCOps/HRCAnomaly2020/Scripts
-[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020/Scripts[39m [38;5;242mmaster[38;5;218m*[39m
-[35m❯[39m [K[?1h=[?2004hppython hrcI_powerup_monitor.py[1m [0m[0m [?1l>[?2004l
-]2;python hrcI_powerup_monitor.py]1;python]0;Scripts: python hrcI_powerup_monitor.pyTraceback (most recent call last):
-  File "hrcI_powerup_monitor.py", line 3, in <module>
-    import Ska.engarchive.fetch as fetch
-ModuleNotFoundError: No module named 'Ska'
-]2;grant@symmetry: ~/HRCOps/HRCAnomaly2020/Scripts]1;..y2020/Scripts]0;~/HRCOps/HRCAnomaly2020/Scripts
-[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020/Scripts[39m [38;5;242mmaster[38;5;218m*[39m
-[31m❯[39m [K[?1h=[?2004hsskani  init[?1l>[?2004l
-]2;conda activate ska3]1;skainit]0;Scripts: conda activate ska3]2;grant@symmetry: ~/HRCOps/HRCAnomaly2020/Scripts]1;..y2020/Scripts]0;~/HRCOps/HRCAnomaly2020/Scripts
-[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020/Scripts[39m [38;5;242mmaster[38;5;218m*[39m
-[35m❯[39m [K[?1h=[?2004hskainitpython hrcI_powerup_monitor.py[?1l>[?2004l
-]2;python hrcI_powerup_monitor.py]1;python]0;Scripts: python hrcI_powerup_monitor.pyFetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:50:20.559
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:51:47.579
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:53:10.004
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:54:38.140
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:56:06.295
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:57:26.516
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:16:58:50.439
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:00:08.306
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:01:28.786
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:02:52.130
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:04:10.056
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:05:32.591
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:06:55.616
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:08:16.189
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:09:46.067
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:11:05.626
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:12:27.731
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:13:53.895
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:15:16.349
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:16:41.688
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:18:00.582
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:19:26.389
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:20:52.987
-Fetching full-resolution data for MSIDS=['2PRBSVL', '2PRBSCR']
-  from 2020:220:12:00:00.000 to 2020:275:17:22:17.600
-Traceback (most recent call last):
-  File "hrcI_powerup_monitor.py", line 135, in <module>
-    update_plot()
-  File "hrcI_powerup_monitor.py", line 105, in update_plot
-    current = fetch.get_telem(['2PRBSVL', '2PRBSCR'], '2020:220')
-  File "/Applications/Anaconda/envs/ska3/lib/python3.6/site-packages/Ska/engarchive/fetch.py", line 1859, in get_telem
-    max_fetch_Mb, max_output_Mb)
-  File "/Applications/Anaconda/envs/ska3/lib/python3.6/site-packages/Ska/engarchive/get_telem.py", line 200, in get_telem
-    dat = fetch.MSIDset(msids, start, stop, stat=stat, filter_bad=filter_bad)
-  File "/Applications/Anaconda/envs/ska3/lib/python3.6/site-packages/Ska/engarchive/fetch.py", line 1439, in __init__
-    self.filter_bad()
-  File "/Applications/Anaconda/envs/ska3/lib/python3.6/site-packages/Ska/engarchive/fetch.py", line 1493, in filter_bad
-    bads |= msid.bads
-ValueError: operands could not be broadcast together with shapes (138347,) (138348,) (138347,) 
-]2;grant@symmetry: ~/HRCOps/HRCAnomaly2020/Scripts]1;..y2020/Scripts]0;~/HRCOps/HRCAnomaly2020/Scripts
-[0m[27m[24m[J[34m~/HRCOps/HRCAnomaly2020/Scripts[39m [38;5;242mmaster[38;5;218m*[39m [33m32m 22s[39m
-[31m❯[39m [K[?1h=[?2004h
