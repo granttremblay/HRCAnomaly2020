@@ -98,7 +98,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
             for msid in dashboard_msids[plotnum]:
 
                 data = fetch.get_telem(
-                    msid, start=convert_to_doy(plot_start), sampling=sampling, max_fetch_Mb=100000, max_output_Mb=100000, quiet=True, filter_bad=True)
+                    msid, start=convert_to_doy(plot_start), sampling=sampling, max_fetch_Mb=100000, max_output_Mb=100000, quiet=True)
 
                 print('Fetching from {} at {} resolution: {}'.format(
                     convert_to_doy(plot_start), sampling, msid), end='\r', flush=True)
@@ -135,7 +135,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                 # It will have already plotted pitch. So just clear it.
                 ax.clear()
                 ax.plot_date(convert_chandra_time(
-                    data['2SHEV1RT'].times), data['2SHEV1RT'].vals, markersize=1, label=msid, zorder=1, rasterized=True)
+                    data['2SHEV1RT'].times), data['2SHEV1RT'].midvals, markersize=1, label=msid, zorder=1, rasterized=True)
                 with fetch.data_source('maude'):
                     latest_data = fetch.get_telem(
                         '2SHEV1RT', start=convert_to_doy(yesterday), quiet=True)
@@ -165,7 +165,7 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
             if missionwide is True:
                 if plotnum == 10:
                     ax.set_ylim(1, 20000)
-                    ax.set_yscale('log')
+                    # ax.set_yscale('log')
                 if plotnum == 11:
                     ax.set_ylim(1, 10000)
                     ax.set_title('Shield Rate'.format(),
