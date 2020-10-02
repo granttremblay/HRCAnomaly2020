@@ -14,7 +14,7 @@ import matplotlib.dates as mdate
 from matplotlib import gridspec
 
 import matplotlib.pyplot as plt
-import mpld3
+# import mpld3
 
 import numpy as np
 import pandas as pd
@@ -164,8 +164,8 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
 
             if missionwide is True:
                 if plotnum == 10:
-                    ax.set_ylim(1, 20000)
-                    # ax.set_yscale('log')
+                    ax.set_ylim(1, 10000)
+                    ax.set_yscale('log')
                 if plotnum == 11:
                     ax.set_ylim(1, 10000)
                     ax.set_title('Shield Rate'.format(),
@@ -204,6 +204,7 @@ def main():
                     plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'))
 
         plt.tight_layout()
+        plt.show(block=False)
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
         plt.savefig(fig_save_directory + 'status.pdf',
