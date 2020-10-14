@@ -75,6 +75,44 @@ critical_anomaly_temps = [
     "2DTSTATT"   # OutDet1 Temperature (c)
 ]
 
+motor_msids = ["2DRLSOP",  # Door Primary Limit Switch Open (0 = not open)
+               "2DRLSCL",  # Door Primary Limit Switch Closed (0 = not open)
+               "2PYLSHM",  # +Y Shutter Primary LS Home (0 = not home)
+               "2PYLSMX",  # +Y Shut LS Max ([un]act)
+               "2MYLSHM",  # -Y Shut LS Home ([un]act)
+               "2MYLSMX",  # -Y SHUTTER PRIMARY LIM SWITCH MAX TRAVEL
+               "2CSLSHM",  # Cal Source Primary Limit Switch Home
+               "2CSLSMX",  # Cal Source primary limit switch max travel
+               "2FSPYST",  # Failsafe +Y shutter on/off (0 = ena)
+               "2FSNYST",  # Failsafe -Y shutter on/off (0 = ena)
+               "2NYMTAST",  # -Y SHUTTER MOTOR SELECTED
+               "2PYMTAST",  # +Y SHUTTER MOTOR SELECTED
+               "2CLMTAST",  # CALSRC MOTOR SELECTED
+               "2DRMTAST",  # DOOR MOTOR SELECTED
+               "2ALMTAST",  # ALL MOTORS DESELECTED
+               "2MSMDARS",  # MOTION CONTROL MODE RESET
+               "2MDIRAST",  # MOTOR DIRECTION (TRWD A,B)
+               "2MSNBAMD",  # MTR STAT REG MV NSTEPS TRWD "B"
+               "2MSNAAMD",  # MTR STAT REG MV NSTEPS TWRD "A"
+               "2MSLBAMD",  # MTR STAT REG MV TO LS "B"
+               "2MSLAAMD",  # MTR STAT REG MV TO LS "A"
+               "2MSPRAMD",  # MTR STAT REG MV TO POS REG
+               "2MSDRAMD",  # MTR DRIVE ENABLE
+               "2MCMDARS",  # MOTION CONTROL MODE RESET
+               "2MCNBAMD",  # MTR CMD REG MV NSTEPS TRWD "B"
+               "2MCNAAMD",  # MTR CMD REG MV NSTEPS TWRD "A"
+               "2MCLBAMD",  # MTR CMD REG MV TO LS "B"
+               "2MCLAAMD",  # MTR CMD REG MV TO LS "A"
+               "2MCPRAMD",  # MTR CMD REG MV TO POS REG
+               "2MDRVAST",  # MTR DRIVE ENABLE
+               "2SCTHAST",  # STEP CTR LAST VAL (HI BYTE)
+               "2SCTHAST",  # STEP CTR LAST VAL (LO BYTE)
+               "2SMOIAST",  # SELECTED MOTOR OVERCURRENT FLAG
+               "2SMOTAST",  # SELECTED MOTOR OVERTEMP FLAG
+               "2DROTAST",  # DRV OVERTEMP ENABLE
+               "2DROIAST"  # DRV OVERCURRENT ENABLE
+               ]
+
 
 davec_temperature_msids = [
     "2PMT1T",  # PMT 1 EED Temperature (c)
@@ -131,11 +169,6 @@ spacecraft_orbit_pseudomsids = ["Dist_SatEarth",  # Chandra-Earth distance (from
                                 # Pointing-Solar angle (from center) (deg)
                                 "Point_SunCentAng"
                                 ]
-
-motor_msids = ["2SCTHAST",
-               "2SMOIAST",
-               "2SMOTAST",
-               "2MSDRAMD"]
 
 
 # Times flagged as Secondary Science Corruption

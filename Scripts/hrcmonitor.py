@@ -185,7 +185,7 @@ def main():
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
 
     plt.ion()
-    plt.figure(0, figsize=(17, 8))
+    plt.figure(figsize=(17, 6))
 
     counter = 0
 
@@ -206,7 +206,6 @@ def main():
                     plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'))
 
         plt.tight_layout()
-        plt.show(block=False)
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
         plt.savefig(fig_save_directory + 'status.pdf',
@@ -221,7 +220,7 @@ def main():
         update_plot(counter, plot_start=dt.datetime(
             2000, 1, 4), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%Y'), current_hline=True, missionwide=True)
 
-        # plt.tight_layout()
+        plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
         plt.savefig(fig_save_directory + 'status_wide.pdf',
