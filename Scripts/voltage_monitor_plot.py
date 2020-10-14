@@ -74,5 +74,5 @@ if __name__ == "__main__":
         update_plot()
         counter += 1
         plt.title("Iteration {} | {}".format(counter, dt.datetime.now()))
-        plt.pause(3)
+        plt.pause(300)
         plt.draw()

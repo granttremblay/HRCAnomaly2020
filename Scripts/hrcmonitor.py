@@ -205,7 +205,7 @@ def main():
         update_plot(counter, plot_start=four_days_ago,
                     plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'))
 
-        plt.tight_layout()
+        # plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
         plt.savefig(fig_save_directory + 'status.pdf',
@@ -220,7 +220,7 @@ def main():
         update_plot(counter, plot_start=dt.datetime(
             2000, 1, 4), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%Y'), current_hline=True, missionwide=True)
 
-        plt.tight_layout()
+        # plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
         plt.savefig(fig_save_directory + 'status_wide.pdf',
