@@ -81,8 +81,6 @@ for i, msid in zip(color_idx, motor_msids):
     dat = fetch.MSID(msid, start='2020:220')
     # YOU HAVE TO USE RAW_VALS HERE BECAUSE OTHERWISE VALS WILL BEA  STRING LIKE UNACT OR ENAB
 
-    ax.set_ylim(-2, 2)
-    ax.set_xlim(dt.datetime(2020, 8, 22, 0, 0), dt.datetime(2020, 9, 2, 0, 0))
     ax.axvline(eventdate, color='gray')
     ax.axvline(hrc_poweroff_date, color='gray')
     ax.axvline(a_side_reset, color='gray')
@@ -99,8 +97,9 @@ for i, msid in zip(color_idx, motor_msids):
     except Exception as inst:
         print('ERROR on {}: '.format(msid, inst))
 
-    ax.set_ylim(-2, 2)
+    # ax.set_ylim(-2, 2)
     ax.set_xlim(dt.datetime(2020, 8, 22, 0, 0), dt.datetime(2020, 9, 2, 0, 0))
+    ax.set_title('{}'.format(msid))
 
     fig.savefig('/Users/grant/Desktop/{}.png'.format(msid), dpi=300)
     plt.close()
