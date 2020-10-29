@@ -21,7 +21,7 @@ hrc.styleplots()
 
 
 # allow_subset=True should let us draw more data points
-fetch.data_source.set('cxc', 'maude allow_subset=False')
+fetch.data_source.set('cxc', 'maude allow_subset=True')
 
 
 def update_plot():

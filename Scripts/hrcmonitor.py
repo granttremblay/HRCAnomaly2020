@@ -89,7 +89,7 @@ def convert_to_doy(datetime_start):
     return doystring
 
 
-def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.date.today() + dt.timedelta(days=2), sampling='full', current_hline=False, date_format=mdate.DateFormatter('%d %H'), missionwide=False):
+def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.date.today() + dt.timedelta(days=2), sampling='full', current_hline=False, date_format=mdate.DateFormatter('%d %H'), force_limits=False, missionwide=False):
     plotnum = -1
     for i in range(3):
         for j in range(4):
@@ -127,6 +127,16 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                         ax.axhline(
                             latest_data[msid].vals[-1], color=yellow, zorder=2)
                         # then we've fetched from CXC/Ska and we don't. So grab it (with low fetch overhead)
+                if force_limits is True:
+                    ax.set_ylim(dashboard_limits[plotnum])
+
+            if plotnum == 2:
+                # Then this is the Bus Current plot. Overplot the CAUTION and WARNING limits
+                ax.axhspan(2.3, 2.5, facecolor=yellow, alpha=0.3)
+                ax.axhspan(2.5, 4.0, facecolor=red, alpha=0.3)
+
+            if plotnum == 10:
+                ax.set_yscale('log')
 
             if missionwide is True and plotnum == 11:
                 ax.set_ylabel(r'Counts s$^{-1}$')
@@ -203,9 +213,9 @@ def main():
         two_days_hence = dt.date.today() + dt.timedelta(days=2)
 
         update_plot(counter, plot_start=four_days_ago,
-                    plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'))
+                    plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'), force_limits=True)
 
-        # plt.tight_layout()
+        plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
         plt.savefig(fig_save_directory + 'status.pdf',
@@ -220,7 +230,7 @@ def main():
         update_plot(counter, plot_start=dt.datetime(
             2000, 1, 4), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%Y'), current_hline=True, missionwide=True)
 
-        # plt.tight_layout()
+        plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
         plt.savefig(fig_save_directory + 'status_wide.pdf',

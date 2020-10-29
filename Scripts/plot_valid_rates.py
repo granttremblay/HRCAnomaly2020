@@ -25,7 +25,7 @@ allow_subset = True
 fetch.data_source.set('cxc')
 
 
-rate_msids = ['2TLEV1RT', '2VLEV1RT']
+rate_msids = ['2TLEV1RT', '2VLEV1RT', '2SHEV1RT']
 
 
 dat_rates = fetch.get_telem(
@@ -41,9 +41,7 @@ ax1.plot_date(hrc.convert_chandra_time(
 #     dat_hrci['2TLEV2RT'].times), dat_hrci['2TLEV2RT'].vals, color=blue, markersize=0, linewidth=2.0, linestyle='-', label='2TLEV2RT')
 ax1.plot_date(hrc.convert_chandra_time(
     dat_rates['2VLEV1RT'].times), dat_rates['2VLEV1RT'].midvals, color=purple, markersize=1.8,  label='2VLEV1RT')
-# ax1.plot_date(hrc.convert_chandra_time(
-#     dat_hrci['2VLEV2RT'].times), dat_hrci['2VLEV2RT'].vals, color=purple, markersize=0, linewidth=2.0, linestyle='-', label='2VLEV2RT')
-
+ax1.plot_date(hrc.convert_chandra_time(dat_rates['2SHEV1RT'].times), dat_rates['2SHEV1RT'].vals, color=yellow, markersize=0, linewidth=2.0, linestyle='-', label='2SHEV1RT')
 
 # ax1.grid('off', axis='y')
 ax1.legend()
