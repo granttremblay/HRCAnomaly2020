@@ -39,8 +39,8 @@ plt.rcParams['font.size'] = labelsizes
 
 plt.rcParams['axes.titlesize'] = labelsizes
 plt.rcParams['axes.labelsize'] = labelsizes
-plt.rcParams['xtick.labelsize'] = labelsizes
-plt.rcParams['ytick.labelsize'] = labelsizes
+plt.rcParams['xtick.labelsize'] = labelsizes - 2
+plt.rcParams['ytick.labelsize'] = labelsizes - 2
 
 
 def convert_chandra_time(rawtimes):
@@ -155,9 +155,9 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
             ax.set_xlim(plot_start, plot_end)
             ax.set_ylabel(dashboard_units[plotnum])
 
-            ax.axvline(eventdate, color=red)
-            ax.axvline(time_of_second_anomaly, color=red)
-            ax.axvline(time_of_cap_1543, color='gray')
+            # ax.axvline(eventdate, color=red)
+            # ax.axvline(time_of_second_anomaly, color=red)
+            # ax.axvline(time_of_cap_1543, color='gray')
             ax.axvline(dt.datetime.now(pytz.utc),
                        color='gray', alpha=0.5)
 
@@ -212,7 +212,7 @@ def main():
         six_days_ago = dt.date.today() - dt.timedelta(days=6)
         two_days_hence = dt.date.today() + dt.timedelta(days=2)
 
-        update_plot(counter, plot_start=four_days_ago,
+        update_plot(counter, plot_start=six_days_ago,
                     plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'), force_limits=True)
 
         plt.tight_layout()
@@ -224,6 +224,8 @@ def main():
             fig_save_directory), end="\r", flush=True)
         # Clear the command line manually
         sys.stdout.write("\033[K")
+
+        plt.clf()
 
         fetch.data_source.set('cxc')
 

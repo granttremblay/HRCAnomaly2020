@@ -48,12 +48,16 @@ def compute_yearly_average(values, window):
     return moving_ave_array
 
 
-all_trends = {}
+def main():
 
-for msidname in temperature_msids:
-    moving_aves = compute_yearly_average(
-        data["{}_values".format(msidname)], window)
-    moving_stds = compute_yearly_average(
-        data["{}_stds".format(msidname)], window)
-    all_trends["{}_trend".format(msidname)] = moving_aves
-    all_trends["{}_stds".format(msidname)] = moving_stds
+    data = fetch.MSIDset
+
+    all_trends = {}
+
+    for msidname in temperature_msids:
+        moving_aves = compute_yearly_average(
+            data["{}_values".format(msidname)], window)
+        moving_stds = compute_yearly_average(
+            data["{}_stds".format(msidname)], window)
+        all_trends["{}_trend".format(msidname)] = moving_aves
+        all_trends["{}_stds".format(msidname)] = moving_stds
