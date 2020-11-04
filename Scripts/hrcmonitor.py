@@ -38,8 +38,8 @@ plt.rcParams['font.size'] = labelsizes
 
 plt.rcParams['axes.titlesize'] = labelsizes
 plt.rcParams['axes.labelsize'] = labelsizes
-plt.rcParams['xtick.labelsize'] = labelsizes
-plt.rcParams['ytick.labelsize'] = labelsizes
+plt.rcParams['xtick.labelsize'] = labelsizes - 2
+plt.rcParams['ytick.labelsize'] = labelsizes - 2
 
 
 def convert_chandra_time(rawtimes):
@@ -88,7 +88,7 @@ def convert_to_doy(datetime_start):
     return doystring
 
 
-def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.date.today() + dt.timedelta(days=2), sampling='full', current_hline=False, date_format=mdate.DateFormatter('%d %H'), missionwide=False):
+def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.date.today() + dt.timedelta(days=2), sampling='full', current_hline=False, date_format=mdate.DateFormatter('%d %H'), force_limits=False, missionwide=False):
     plotnum = -1
     for i in range(3):
         for j in range(4):
@@ -126,6 +126,16 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
                         ax.axhline(
                             latest_data[msid].vals[-1], color=yellow, zorder=2)
                         # then we've fetched from CXC/Ska and we don't. So grab it (with low fetch overhead)
+                if force_limits is True:
+                    ax.set_ylim(dashboard_limits[plotnum])
+
+            if plotnum == 2:
+                # Then this is the Bus Current plot. Overplot the CAUTION and WARNING limits
+                ax.axhspan(2.3, 2.5, facecolor=yellow, alpha=0.3)
+                ax.axhspan(2.5, 4.0, facecolor=red, alpha=0.3)
+
+            if plotnum == 10:
+                ax.set_yscale('log')
 
             if missionwide is True and plotnum == 11:
                 ax.set_ylabel(r'Counts s$^{-1}$')
@@ -144,9 +154,9 @@ def update_plot(counter, plot_start=dt.datetime(2020, 8, 31, 00), plot_end=dt.da
             ax.set_xlim(plot_start, plot_end)
             ax.set_ylabel(dashboard_units[plotnum])
 
-            ax.axvline(eventdate, color=red)
-            ax.axvline(time_of_second_anomaly, color=red)
-            ax.axvline(time_of_cap_1543, color='gray')
+            # ax.axvline(eventdate, color=red)
+            # ax.axvline(time_of_second_anomaly, color=red)
+            # ax.axvline(time_of_cap_1543, color='gray')
             ax.axvline(dt.datetime.now(pytz.utc),
                        color='gray', alpha=0.5)
 
@@ -201,10 +211,10 @@ def main():
         six_days_ago = dt.date.today() - dt.timedelta(days=6)
         two_days_hence = dt.date.today() + dt.timedelta(days=2)
 
-        update_plot(counter, plot_start=four_days_ago,
-                    plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'))
+        update_plot(counter, plot_start=six_days_ago,
+                    plot_end=two_days_hence, sampling='full', date_format=mdate.DateFormatter('%m-%d'), force_limits=True)
 
-        # plt.tight_layout()
+        plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status.png', dpi=300)
         plt.savefig(fig_save_directory + 'status.pdf',
@@ -214,12 +224,14 @@ def main():
         # Clear the command line manually
         sys.stdout.write("\033[K")
 
+        plt.clf()
+
         fetch.data_source.set('cxc')
 
         update_plot(counter, plot_start=dt.datetime(
             2000, 1, 4), plot_end=None, sampling='daily', date_format=mdate.DateFormatter('%Y'), current_hline=True, missionwide=True)
 
-        # plt.tight_layout()
+        plt.tight_layout()
         plt.draw()
         plt.savefig(fig_save_directory + 'status_wide.png', dpi=300)
         plt.savefig(fig_save_directory + 'status_wide.pdf',
