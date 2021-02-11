@@ -14,7 +14,6 @@ import matplotlib.dates as mdate
 from matplotlib import gridspec
 
 import matplotlib.pyplot as plt
-# import mpld3
 
 import numpy as np
 import pandas as pd
@@ -22,6 +21,8 @@ import pandas as pd
 from msidlists import *
 from event_times import *
 from plot_stylers import *
+
+from forecast_thermals import *
 
 
 # allow_subset=True should let us draw more data points
@@ -244,6 +245,12 @@ def main():
 
         # # fig = plt.gcf()
         # # mpld3.fig_to_html(fig, fig_save_directory + 'interactive_plot.html')
+
+        print('Updating Thermal Plots', end="\r", flush=True)
+        make_thermal_plots(counter)
+        print('Done', end="\r", flush=True)
+        # Clear the command line manually
+        sys.stdout.write("\033[K")
 
         counter += 1
         sleep_period_seconds = 120
