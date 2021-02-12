@@ -1,15 +1,5 @@
 #!/usr/bin/env python
 
-import datetime as dt
-
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdate
-
-from hrcsentinel import hrccore as hrc
-
-
-# MSIDlists
-
 voltage_msids = ['2P24VAVL',  # 24 V bus EED voltage,
                  '2P15VAVL',  # +15 V bus EED voltage
                  '2P05VAVL',  # +05 V bus EED voltage
@@ -157,8 +147,6 @@ davec_temperature_msids = [
 ]
 
 
-
-
 rate_msids = ['2TLEV1RT',  # The Total Event Rate
               '2VLEV1RT',  # VAlie Event Rate
               '2SHEV1RT',  # Shield Event Rate
@@ -258,12 +246,12 @@ dashboard_units = ["Voltage (V)",
 dashboard_limits = [(-20, 30),
                     (26, 32),
                     (1.4, 2.7),
-                    (15, 35),
-                    (15, 35),
-                    (15, 35),
-                    (15, 35),
-                    (15, 35),
-                    (25, 35),
+                    (10, 35),
+                    (10, 35),
+                    (10, 35),
+                    (10, 35),
+                    (10, 35),
+                    (20, 35),
                     (30, 40),
                     (10, 7000),
                     (40, 190)
