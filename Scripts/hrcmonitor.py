@@ -10,10 +10,11 @@ import Ska.engarchive.fetch as fetch
 import Chandra.Time
 
 import datetime as dt
-import matplotlib.dates as mdate
-from matplotlib import gridspec
 
 import matplotlib.pyplot as plt
+
+import matplotlib.dates as mdate
+from matplotlib import gridspec
 
 import numpy as np
 import pandas as pd
@@ -196,7 +197,7 @@ def main():
     fig_save_directory = '/Users/grant/HEAD/data/wdocs/tremblay/HRCOps/plots/'
 
     plt.ion()
-    plt.figure(figsize=(17, 6))
+    plt.figure(0, figsize=(17, 8))
 
     counter = 0
 
