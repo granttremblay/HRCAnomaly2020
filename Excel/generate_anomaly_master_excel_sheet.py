@@ -7,7 +7,8 @@ import time
 import pytz
 import traceback
 
-import Ska.engarchive.fetch as fetch
+# import Ska.engarchive.fetch as fetch
+from Ska.engarchive import fetch_sci as fetch
 import Chandra.Time
 
 import datetime as dt
