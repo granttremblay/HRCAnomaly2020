@@ -1,4 +1,4 @@
-#!/usr/bin/env conda run -n ska3 python
+#!/usr/bin/env python
 
 import Ska.engarchive.fetch as fetch
 import Chandra.Time
