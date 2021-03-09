@@ -7,6 +7,8 @@ import time
 import pytz
 import traceback
 
+from pathlib import Path
+
 # import Ska.engarchive.fetch as fetch
 from Ska.engarchive import fetch_sci as fetch
 import Chandra.Time
@@ -24,7 +26,7 @@ from hrcsentinel import hrccore as hrc
 from tqdm import tqdm as progressbar
 
 
-fetch.data_source.set('cxc')
+fetch.data_source.set('cxc allow_subset=False')
 
 
 def convert_to_doy(datetime_start):
@@ -95,7 +97,9 @@ def main():
 
     df['Human-readable time (UTC)'] = df['Human-readable time (UTC)'].dt.tz_localize(None)
 
-    df.to_excel('/Users/grant/Desktop/master_anomaly_excel.xlsx')
+    home = str(Path.home())
+
+    df.to_excel(os.path.join(home,'Desktop/master_anomaly_excel.xlsx'))
 
 
 if __name__ == '__main__':
