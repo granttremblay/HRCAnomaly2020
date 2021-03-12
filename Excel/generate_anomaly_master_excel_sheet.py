@@ -113,8 +113,10 @@ def main():
 
     temperature_msids = msids()
 
-    dat = fetch.get_telem(temperature_msids, start=data_start,
+    dat = fetch.MSIDset(temperature_msids, start=data_start,
                         stop=data_stop)
+
+    dat.interpolate()
 
     data_columns = [dat['2CEAHVPT'].times,
                     mdate.num2date(convert_chandra_time(dat['2CEAHVPT'].times))]
