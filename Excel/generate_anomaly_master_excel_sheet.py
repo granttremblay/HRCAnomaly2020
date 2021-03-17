@@ -74,8 +74,9 @@ def convert_chandra_time(rawtimes):
 
 def tom_msids():
 
-    msids = ['2P05VAVL', '2N15VAVL', '2P24VAVL', '2DETART', '2SHLDART', '2C05PALV', '2C15PALV', '2C24PALV',
-             '2PRBSCR', '2PRBSVL', '2IMHBLV', '2IMHVLV', '2IMHBLV', '2SPHVLV', '2S1HVLV', '2S2HVLV', '2SMOIAST', '2SMOTAST']
+    msids = ['2P05VAVL', '2P15VAVL', '2C15NALV', '2N15VAVL', '2P24VAVL', '2DETART', '2SHLDART', '2C05PALV', '2C15PALV', '2C24PALV',
+             '2PRBSCR', '2PRBSVL', '2IMHBLV', '2IMHVLV', '2IMHBLV', '2SPHBLV', '2SPHVLV', '2S1HVLV', '2S2HVLV', '2SMOIAST', '2SMOTAST',
+             '2FEPRATM', '2SPINATM', '2IMINATM', '2LVPLATM', '2SPHVATM', '2IMHVATM', '2SMTRATM', '2FE00ATM', '2CE00ATM', '2CE01ATM']
 
     return msids
 
@@ -108,7 +109,7 @@ def main():
         df = pd.DataFrame(data=columns).T
         df.columns = names
 
-        df.to_excel(os.path.join(home, f'Desktop/{item}.xlsx'))
+        df.to_excel(os.path.join(home, f'Desktop/telem/{item}.xlsx'))
 
 
 if __name__ == '__main__':
